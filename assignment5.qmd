@@ -80,7 +80,7 @@ Plot the dendrogram to find a reasonable number of clusters. Draw boxes around t
 
 ```{r}
 plot(cluster_ward, main = "ward", xlab = "", sub = "")
-rect.hclust(hc_ward, k = 4, border = "red")
+rect.hclust(cluster_ward, k = 4, border = "red")
 
 ```
 
@@ -198,16 +198,16 @@ We want to utilize this function to iterate over multiple Ks (e.g., K = 2, ..., 
 Finally, display the first rows of the updated data set (with multiple cluster columns).
 
 ```{r}
-kmeans_cluter <- function(k) {
-  km <- kmeans(kclust_data, centers = k, nstart = 20)
+kmeans_cluster <- function(k) {
+  km <- stats::kmeans(cluster_data, centers = k, nstart = 20)
   return(km$cluster)
 }
 
 # Use the function to iterate over multiple Ks
 for (i in 2:10) {
-  acs_il_t[[paste0("cluster_", i)]] <-
-    factor(kmeans_cluter(i))
-  }
+  acs_il_t[[paste0("cluster_", i)]] <- 
+    factor(kmeans_cluster(i))
+}
 
 # Display the first few rows of the updated data set
 head(acs_il_t)
